@@ -5,7 +5,6 @@ let canvas = document.querySelector("#canvas");
 let myImage = document.querySelector("#myImage");
 let load = document.querySelector("#load");
 let image_data_url = '';
-canvas.style.display = 'none';
 
 camera_button.addEventListener('click', async function() {
     let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); //video에 대한 권한 요청
@@ -16,9 +15,13 @@ camera_button.addEventListener('click', async function() {
 click_button.addEventListener('click', function() {
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height); //canvas에 2d 이미지를 그림.
     image_data_url = canvas.toDataURL('image/jpeg'); //canvas 이미지와 똑같은 그림의 url을 image_data_url에 저장
+    canvas.style.display = 'inline';
+    myImage.style.display = 'none';
     console.log(image_data_url); //image_url 출력
 });
 
 load.addEventListener('click', function() {
     myImage.src = image_data_url; //테스트를 위해 image에 canvas 이미지를 띄워봄
+    canvas.style.display = 'none';
+    myImage.style.display = 'inline';
 });
